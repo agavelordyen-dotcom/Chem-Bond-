@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHEM-BOND | Ikatan Kovalen Koordinasi</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 17px;
+            background: #f4f8fc;
+            color: #172a46;
+        }
+
+
+        body, button, textarea, input, select {
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 6%;
+            background: #08244a;
+            color: white;
+            box-shadow: 0 3px 15px rgba(0,0,0,.15);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .atom-logo {
+            width: 42px;
+            height: 42px;
+            border: 2px solid #65d5ed;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            font-size: 10px;
+            color: #b9c9dc;
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #65d5ed;
+        }
+
+        /* BERANDA */
+        .hero {
+            min-height: calc(100vh - 78px);
+            padding: 55px 6%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            box-sizing: border-box;
+            background:
+                radial-gradient(circle at 80% 45%, #1b4e82 0%, transparent 30%),
+                linear-gradient(135deg, #061a38, #0c3567);
+            color: white;
+        }
+
+        .hero-content {
+            width: min(88%, 900px);
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .label {
+            display: inline-block;
+            padding: 8px 14px;
+            margin-bottom: 20px;
+            border: 1px solid #65d5ed;
+            border-radius: 30px;
+            color: #65d5ed;
+            font-size: 11px;
+            letter-spacing: 1.3px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            line-height: 1.05;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: #65d5ed;
+        }
+
+        .hero-description {
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #c7d5e6;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .progress-box {
+            width: 480px;
+            max-width: 100%;
+            margin: 28px auto;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 7px;
+            background: #294566;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+            background: #65d5ed;
+            transition: .5s;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .feature {
+            padding: 13px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        .feature-icon {
+            color: #65d5ed;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 14px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: .3s;
+        }
+
+        .btn-primary {
+            background: #65d5ed;
+            color: #08244a;
+            font-weight: bold;
+        }
+
+        .btn-secondary {
+            border: 1px solid #65d5ed;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #65d5ed;
+            color: #08244a;
+        }
+
+        /* ATOM VISUAL */
+        .atom-area {
+            width: 350px;
+            height: 350px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orbit {
+            position: absolute;
+            border: 1px solid rgba(101,213,237,.4);
+            border-radius: 50%;
+        }
+
+        .orbit1 {
+            width: 210px;
+            height: 210px;
+        }
+
+        .orbit2 {
+            width: 290px;
+            height: 145px;
+            transform: rotate(45deg);
+        }
+
+        .orbit3 {
+            width: 290px;
+            height: 145px;
+            transform: rotate(-45deg);
+        }
+
+        .atom-center {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #174879;
+            border: 2px solid #65d5ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            font-weight: bold;
+            box-shadow: 0 0 35px rgba(101,213,237,.3);
+            z-index: 2;
+        }
+
+        .electron {
+            width: 34px;
+            height: 34px;
+            position: absolute;
+            border-radius: 50%;
+            background: #65d5ed;
+            color: #08244a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            z-index: 3;
+        }
+
+        .e1 { top: 48px; }
+        .e2 { right: 25px; }
+        .e3 { bottom: 48px; }
+        .e4 { left: 25px; }
+
+        .atom-caption {
+            position: absolute;
+            bottom: -20px;
+            color: #aebfd4;
+            font-size: 11px;
+        }
+
+        /* SECTION */
+        .section {
+            padding: 85px 8%;
+            background: white;
+        }
+
+        .section-title {
+            max-width: 760px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: #1384a4;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin: 12px 0;
+        }
+
+        .section-title p {
+            color: #6c7b8e;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* PETA */
+        .learning-flow {
+            margin: 50px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .flow {
+            width: 115px;
+            text-align: center;
+        }
+
+        .flow-number {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            background: #e4f6fa;
+            color: #1384a4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .flow h3 {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .flow p {
+            color: #7a8797;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .flow-arrow {
+            color: #1384a4;
+            font-size: 22px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            padding: 27px;
+            background: #f7fafc;
+            border: 1px solid #e2e9f0;
+            border-radius: 15px;
+        }
+
+        .card-icon {
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        .card p,
+        .card li {
+            color: #68778b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .card ul,
+        .card ol {
+            padding-left: 20px;
+        }
+
+        .question-box {
+            margin-top: 30px;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            background: #e9f7fb;
+            border-radius: 16px;
+        }
+
+        .question-label {
+            color: #1384a4;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .question-box h3 {
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        .question-box p {
+            color: #68778b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .question-box textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 14px;
+            border: 1px solid #c9dce4;
+            border-radius: 10px;
+            resize: vertical;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .save-button {
+            grid-column: 2;
+            width: max-content;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #1384a4;
+            color: white;
+            cursor: pointer;
+        }
+
+        .audio-visual-page {
+            min-height: calc(100vh - 78px);
+            padding: 70px 8%;
+            background: linear-gradient(180deg, #eef8fc, #ffffff);
+        }
+
+        .audio-visual-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .final-panel {
+            margin-top: 35px;
+        }
+
+        .mini-visual {
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 35px;
+            margin: 20px 0;
+            background: #f4fbfd;
+            border-radius: 12px;
+            border: 1px solid #dfe8ef;
+        }
+
+        .mini-atom {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: #08244a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .mini-atom span {
+            color: #65d5ed;
+            font-size: 22px;
+        }
+
+        .mini-atom.acceptor {
+            background: #1384a4;
+        }
+
+        .mini-arrow {
+            font-size: 35px;
+            color: #1384a4;
+            font-weight: bold;
+        }
+
+        /* KONSEP DASAR */
+        .concept {
+            padding: 85px 8%;
+            background: linear-gradient(180deg, #eef8fc, #ffffff);
+        }
+
+        .concept-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .concept-header {
+            margin-bottom: 25px;
+        }
+
+        .concept-label {
+            color: #1384a4;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .concept-header h2 {
+            font-size: 40px;
+            margin: 12px 0;
+        }
+
+        .concept-header p {
+            max-width: 780px;
+            color: #68778b;
+            font-size: 17px;
+            line-height: 1.75;
+        }
+
+        .audio-button,
+        .visual-button {
+            padding: 13px 20px;
+            border: 1px solid #1384a4;
+            border-radius: 8px;
+            background: white;
+            color: #1384a4;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .audio-button:hover,
+        .visual-button:hover {
+            background: #1384a4;
+            color: white;
+        }
+
+        .audio-visual-panel {
+            margin: 28px 0 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .audio-panel, .visual-panel {
+            background: white;
+            border: 1px solid #dfe8ef;
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .audio-panel h3, .visual-panel h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .audio-panel p, .visual-panel p {
+            color: #68778b;
+            font-size: 16px;
+            line-height: 1.65;
+            margin-bottom: 15px;
+        }
+
+        .trigger-title {
+            margin: 45px 0 18px;
+            font-size: 20px;
+        }
+
+        .trigger-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .trigger-card {
+            padding: 22px;
+            background: white;
+            border: 1px solid #dfe8ef;
+            border-radius: 12px;
+        }
+
+        .trigger-card span {
+            color: #1384a4;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .trigger-card p {
+            margin-top: 12px;
+            color: #596b80;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .material {
+            display: flex;
+            gap: 20px;
+            padding: 30px;
+            background: white;
+            border: 1px solid #dfe8ef;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+
+        .material-number {
+            color: #1384a4;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .material-content {
+            flex: 1;
+        }
+
+        .material-content h3 {
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .material-content > p {
+            color: #65758a;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .lewis-box {
+            margin-top: 25px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            background: #f4f9fc;
+            border-radius: 12px;
+        }
+
+        .atom-letter {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .electron-pair,
+        .arrow {
+            color: #1384a4;
+            font-size: 28px;
+        }
+
+        .bond {
+            padding: 8px 20px;
+            background: #e5f7fb;
+            border-radius: 8px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .ingat {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            background: #fff8df;
+            border-left: 5px solid #e4b938;
+            border-radius: 8px;
+        }
+
+        .ingat-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: #e4b938;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .ingat p {
+            color: #68778b;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 5px;
+        }
+
+        .donor-area {
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .donor,
+        .acceptor {
+            padding: 20px 30px;
+            background: #f4f9fc;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .donor span,
+        .acceptor span {
+            display: block;
+            color: #1384a4;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .donor strong,
+        .acceptor strong {
+            font-size: 25px;
+        }
+
+        .donor-arrow {
+            color: #1384a4;
+            font-size: 35px;
+        }
+
+        .key-box {
+            margin-top: 20px;
+            padding: 18px;
+            background: #e9f7fb;
+            border-radius: 10px;
+        }
+
+        .key-box p {
+            color: #68778b;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 5px;
+        }
+
+        .electron-example {
+            margin-top: 25px;
+            padding: 22px;
+            background: #f6f9fc;
+            border-radius: 12px;
+        }
+
+        .configuration {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dce5ed;
+        }
+
+        .configuration span {
+            color: #68778b;
+            font-size: 13px;
+        }
+
+        .configuration strong {
+            color: #1384a4;
+            font-size: 17px;
+        }
+
+        .orbital {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .orbital-box {
+            width: 80px;
+            height: 75px;
+            border: 2px solid #8ca5b5;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .orbital-box.wide {
+            width: 180px;
+        }
+
+        .orbital-box span {
+            display: block;
+            padding: 5px;
+            background: #e9f7fb;
+            font-size: 11px;
+        }
+
+        .orbital-box div {
+            padding-top: 10px;
+            color: #1384a4;
+            font-size: 20px;
+        }
+
+        .electron-note {
+            color: #68778b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .visual-button {
+            margin-top: 18px;
+        }
+
+
+        /* SIMULASI VISUAL */
+        .simulation { margin-top: 55px; }
+        .simulation-header h2 { font-size: 32px; margin: 10px 0; }
+        .simulation-header p { color: #68778b; font-size: 14px; line-height: 1.7; max-width: 700px; }
+        .simulation-card { margin-top: 25px; padding: 28px; background: white; border: 1px solid #dfe8ef; border-radius: 16px; }
+        .simulation-top { display: flex; justify-content: space-between; gap: 15px; font-size: 13px; font-weight: bold; color: #1384a4; }
+        .simulation-progress { height: 6px; margin: 12px 0 28px; background: #e5edf2; border-radius: 10px; overflow: hidden; }
+        #simulationProgress { width: 33.33%; height: 100%; background: #1384a4; transition: .35s; }
+        .simulation-stage { min-height: 210px; position: relative; display: flex; align-items: center; justify-content: center; gap: 45px; background: #f6fafc; border-radius: 12px; }
+        .sim-atom { width: 135px; height: 135px; position: relative; display: flex; align-items: center; justify-content: center; border: 2px solid #8ca5b5; border-radius: 50%; background: white; font-size: 30px; }
+        .sim-label { position: absolute; top: -25px; font-size: 11px; color: #1384a4; font-weight: bold; }
+        .lone-pair { position: absolute; right: 18px; top: 42px; color: #1384a4; font-size: 30px; transition: .35s; }
+        .sim-arrow { color: #1384a4; font-size: 35px; transition: .35s; }
+        .simulation-description { margin: 22px auto; max-width: 650px; text-align: center; color: #68778b; font-size: 13px; line-height: 1.7; }
+        .simulation-controls { display: flex; justify-content: center; gap: 10px; }
+        .sim-button { padding: 10px 17px; border: 1px solid #1384a4; border-radius: 8px; background: white; color: #1384a4; cursor: pointer; }
+        .sim-button.primary { background: #1384a4; color: white; }
+        .sim-button:disabled { opacity: .45; cursor: not-allowed; }
+        .simulation-stage.step-2 .lone-pair { transform: translateX(38px); }
+        .simulation-stage.step-3 .lone-pair { transform: translateX(62px); opacity: 0; }
+        .simulation-stage.step-3 .sim-arrow { opacity: 0; }
+        .simulation-stage.step-3 .donor-atom, .simulation-stage.step-3 .acceptor-atom { border-color: #1384a4; }
+        .simulation-stage.step-3::after { content: 'N → H⁺'; position: absolute; color: #1384a4; font-weight: bold; font-size: 20px; }
+
+        @media (max-width: 950px) {
+            .navbar,
+            .hero {
+                flex-direction: column;
+            }
+
+            .hero {
+                text-align: center;
+            }
+
+            .hero-content {
+                width: 100%;
+            }
+
+            .features,
+            .buttons {
+                justify-content: center;
+            }
+
+            .cards,
+            .trigger-cards,
+            .audio-visual-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .question-box {
+                grid-template-columns: 1fr;
+            }
+
+            .save-button {
+                grid-column: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .atom-area {
+                transform: scale(.8);
+            }
+
+            .learning-flow {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .material {
+                flex-direction: column;
+            }
+
+            .donor-area {
+                gap: 10px;
+            }
+
+            .configuration {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* HALAMAN TERPISAH DALAM SATU HTML */
+        .page { display: none !important; min-height: calc(100vh - 78px); width: 100%; }
+        .page.active { display: block !important; }
+        .page-nav { display:flex; justify-content:space-between; gap:12px; max-width:1000px; margin:35px auto 0; }
+        #beranda {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        #beranda .hero-content { margin-left: auto; margin-right: auto; }
+        #beranda .features, #beranda .buttons { justify-content: center; }
+        #beranda .atom-area { margin: 0 auto; transform: scale(.72); transform-origin: center; }
+        .page-nav button { padding:13px 20px; border:1px solid #1384a4; border-radius:8px; background:white; color:#1384a4; cursor:pointer; font-weight:bold; font-family:"Times New Roman", Times, serif; font-size:15px; }
+        .page-nav button.primary { background:#1384a4; color:white; }
+        .page-nav button:disabled { opacity:.45; cursor:not-allowed; }
+        .page-indicator { text-align:center; color:#7a8797; font-size:13px; margin-top:12px; }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">
+            <div class="atom-logo">⚛</div>
+            <div>
+                <h2>CHEM-BOND</h2>
+                <span>Media Pembelajaran Kimia</span>
+            </div>
+        </div>
+
+        <nav>
+            <a href="#" onclick="bukaHalaman(0);return false;">Beranda</a>
+            <a href="#" onclick="bukaHalaman(1);return false;">Peta Pembelajaran</a>
+            <a href="#" onclick="bukaHalaman(2);return false;">Konsep Dasar</a>
+            <a href="#" onclick="bukaHalaman(3);return false;">Simulasi</a>
+            <a href="#" onclick="bukaHalaman(4);return false;">Audio Visual</a>
+            <a href="#" onclick="return false;">Latihan</a>
+            <a href="#" onclick="return false;">Ringkasan</a>
+        </nav>
+    </header>
+
+
+    <!-- BERANDA -->
+    <section class="hero page active" id="beranda">
+
+        <div class="hero-content">
+
+            <div class="label">
+                MEDIA PEMBELAJARAN KIMIA • INTERAKTIF
+            </div>
+
+            <h1>
+                Ikatan Kovalen<br>
+                <span>Koordinasi</span>
+            </h1>
+
+            <p class="hero-description">
+                Pelajari bagaimana pasangan elektron dapat digunakan
+                bersama dalam pembentukan ikatan kovalen koordinasi
+                melalui konsep, visualisasi, dan simulasi interaktif.
+            </p>
+
+            <div class="progress-box">
+                <div class="progress-info">
+                    <span>Progress belajar</span>
+                    <span id="progressText">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">◈</span>
+                    <span>Konsep dasar</span>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">e⁻</span>
+                    <span>Visualisasi elektron</span>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">↗</span>
+                    <span>Simulasi bertahap</span>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">?</span>
+                    <span>Kuis interaktif</span>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <a href="#peta" class="btn-primary" onclick="mulaiBelajar(event); return false;">
+                    Mulai Belajar →
+                </a>
+
+                <a href="#konsep" class="btn-secondary" onclick="bukaHalaman(2); return false;">
+                    Lihat Simulasi
+                </a>
+            </div>
+        </div>
+
+
+        <!-- Visual atom -->
+        <div class="atom-area">
+            <div class="orbit orbit1"></div>
+            <div class="orbit orbit2"></div>
+            <div class="orbit orbit3"></div>
+
+            <div class="atom-center">N</div>
+
+            <div class="electron e1">e⁻</div>
+            <div class="electron e2">e⁻</div>
+            <div class="electron e3">e⁻</div>
+            <div class="electron e4">e⁻</div>
+
+            <div class="atom-caption">
+                Pasangan elektron bebas
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PETA PEMBELAJARAN -->
+    <section class="section page" id="peta">
+
+        <div class="section-title">
+            <span>PETA PEMBELAJARAN</span>
+            <h2>Apa yang akan kamu pelajari?</h2>
+            <p>
+                Ikuti alur pembelajaran mulai dari konsep,
+                pemantik, ide sederhana, simulasi,
+                hingga audio visual.
+            </p>
+        </div>
+
+        <div class="learning-flow">
+
+            <div class="flow">
+                <div class="flow-number">01</div>
+                <h3>Konsep</h3>
+                <p>Memahami konsep dasar.</p>
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow">
+                <div class="flow-number">02</div>
+                <h3>Pemantik</h3>
+                <p>Menjawab pertanyaan awal.</p>
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow">
+                <div class="flow-number">03</div>
+                <h3>Ide Sederhana</h3>
+                <p>Memahami gagasan awal tentang elektron.</p>
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow">
+                <div class="flow-number">04</div>
+                <h3>Simulasi</h3>
+                <p>Mengikuti proses pembentukan.</p>
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow">
+                <div class="flow-number">05</div>
+                <h3>Audio Visual</h3>
+                <p>Mendengarkan penjelasan dan mengamati visual.</p>
+            </div>
+
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Capaian Pembelajaran</h3>
+                <p>
+                    Memahami konsep ikatan kovalen koordinasi
+                    dan proses pembentukannya berdasarkan
+                    pasangan elektron.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📚</div>
+                <h3>Tujuan Pembelajaran</h3>
+                <ul>
+                    <li>Menjelaskan ikatan kovalen.</li>
+                    <li>Menjelaskan ikatan kovalen koordinasi.</li>
+                    <li>Menentukan elektron valensi.</li>
+                    <li>Menjelaskan proses pembentukan ikatan.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">💡</div>
+                <h3>Cara Menggunakan</h3>
+                <ol>
+                    <li>Baca konsep dasar.</li>
+                    <li>Ikuti visualisasi.</li>
+                    <li>Coba simulasi.</li>
+                    <li>Kerjakan latihan dan kuis.</li>
+                </ol>
+            </div>
+
+        </div>
+
+
+        <div class="question-box">
+
+            <div>
+                <span class="question-label">PERTANYAAN AWAL</span>
+
+                <h3>
+                    Dari mana pasangan elektron berasal?
+                </h3>
+
+                <p>
+                    Tuliskan jawaban awalmu sebelum mempelajari
+                    materi lebih lanjut.
+                </p>
+            </div>
+
+            <textarea id="jawaban" placeholder="Tulis jawabanmu di sini..."></textarea>
+
+            <button class="save-button" onclick="simpanJawaban()">
+                Simpan Jawaban
+            </button>
+        </div>
+
+        <div class="page-nav"><button onclick="bukaHalaman(0)">← Sebelumnya</button><button class="primary" id="nextPeta" onclick="bukaHalaman(2)" disabled>Berikutnya →</button></div>
+        <div class="page-indicator">Halaman 2 dari 5 • Peta Pembelajaran</div>
+    </section>
+
+
+    <!-- KONSEP DASAR -->
+    <section class="concept page" id="konsep">
+
+        <div class="concept-container">
+
+            <div class="concept-header">
+                <span class="concept-label">02 • KONSEP DASAR</span>
+
+                <h2>Mulai dari Ide Sederhana</h2>
+
+                <p>
+                    Kenali terlebih dahulu konsep ikatan kovalen
+                    sebelum memahami bagaimana ikatan kovalen
+                    koordinasi terbentuk.
+                </p>
+            </div>
+
+            <h3 class="trigger-title">Pertanyaan Pemantik</h3>
+
+            <div class="trigger-cards">
+
+                <div class="trigger-card">
+                    <span>01</span>
+                    <p>
+                        Mengapa atom dapat membentuk ikatan
+                        dengan atom lainnya?
+                    </p>
+                </div>
+
+                <div class="trigger-card">
+                    <span>02</span>
+                    <p>
+                        Apa yang terjadi pada elektron ketika
+                        ikatan terbentuk?
+                    </p>
+                </div>
+
+                <div class="trigger-card">
+                    <span>03</span>
+                    <p>
+                        Apakah semua elektron yang digunakan
+                        dalam ikatan berasal dari kedua atom?
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Ikatan Kovalen -->
+            <div class="material">
+
+                <div class="material-number">1.</div>
+
+                <div class="material-content">
+
+                    <h3>Ikatan Kovalen</h3>
+
+                    <p>
+                        Ikatan kovalen adalah ikatan yang terbentuk
+                        ketika dua atom menggunakan pasangan elektron
+                        secara bersama.
+                    </p>
+
+                    <div class="lewis-box">
+                        <div class="atom-letter">A</div>
+                        <div class="electron-pair">:</div>
+                        <div class="atom-letter">B</div>
+                        <div class="arrow">⇄</div>
+                        <div class="bond">A — B</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Ikatan Kovalen Koordinasi -->
+            <div class="material">
+
+                <div class="material-number">2.</div>
+
+                <div class="material-content">
+
+                    <h3>Ikatan Kovalen Koordinasi</h3>
+
+                    <p>
+                        Ikatan kovalen koordinasi merupakan ikatan
+                        ketika pasangan elektron yang digunakan
+                        bersama berasal dari satu atom.
+                    </p>
+
+                    <div class="donor-area">
+
+                        <div class="donor">
+                            <span>Donor</span>
+                            <strong>A :</strong>
+                        </div>
+
+                        <div class="donor-arrow">→</div>
+
+                        <div class="acceptor">
+                            <span>Akseptor</span>
+                            <strong>B</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="key-box">
+                        <strong>🔑 Kunci</strong>
+                        <p>
+                            Arah panah menunjukkan asal pasangan
+                            elektron yang digunakan untuk membentuk ikatan.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Elektron Valensi -->
+            <div class="material">
+
+                <div class="material-number">3.</div>
+
+                <div class="material-content">
+
+                    <h3>Bagaimana Menentukan Elektron Valensi?</h3>
+
+                    <p>
+                        Elektron valensi merupakan elektron yang berada
+                        pada kulit terluar suatu atom. Elektron ini berperan
+                        dalam pembentukan ikatan.
+                    </p>
+
+                    <div class="electron-example">
+
+                        <div class="configuration">
+                            <span>Konfigurasi elektron N</span>
+                            <strong>1s² 2s² 2p³</strong>
+                        </div>
+
+                        <div class="orbital">
+
+                            <div class="orbital-box">
+                                <span>1s</span>
+                                <div>↑↓</div>
+                            </div>
+
+                            <div class="orbital-box">
+                                <span>2s</span>
+                                <div>↑↓</div>
+                            </div>
+
+                            <div class="orbital-box wide">
+                                <span>2p</span>
+                                <div>↑ &nbsp;&nbsp; ↑ &nbsp;&nbsp; ↑</div>
+                            </div>
+
+                        </div>
+
+                        <p class="electron-note">
+                            Elektron valensi berada pada kulit terluar atom.
+                            Pada NH₃, atom N memiliki pasangan elektron bebas
+                            yang dapat berperan dalam pembentukan ikatan.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+            <!-- Ingat -->
+            <div class="ingat">
+                <div class="ingat-icon">!</div>
+                <div>
+                    <strong>Ingat</strong>
+                    <p>Pada ikatan kovalen, pasangan elektron digunakan bersama oleh atom-atom yang berikatan.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="page-nav"><button onclick="bukaHalaman(1)">← Sebelumnya</button><button class="primary" onclick="selesaiKonsep()">Berikutnya →</button></div>
+        <div class="page-indicator">Halaman 3 dari 5 • Konsep Dasar</div>
+
+    </section>
+
+    <section class="simulation page" id="simulasi">
+
+            <div class="simulation-inner">
+                <div class="simulation-header">
+                    <span class="concept-label">04 • SIMULASI VISUAL</span>
+                    <h2>Pembentukan Ikatan Kovalen Koordinasi</h2>
+                    <p>Ikuti perubahan pasangan elektron secara bertahap sampai terbentuk ikatan kovalen koordinasi.</p>
+                </div>
+
+                <div class="simulation-card">
+                    <div class="simulation-top">
+                        <span id="stepText">Langkah 1 dari 3</span>
+                        <span id="stepTitle">Pasangan elektron tersedia</span>
+                    </div>
+                    <div class="simulation-progress"><div id="simulationProgress"></div></div>
+                    <div class="simulation-stage step-1" id="simulationStage">
+                        <div class="sim-atom donor-atom">
+                            <span class="sim-label">Donor</span>
+                            <strong>N</strong>
+                            <span class="lone-pair">:</span>
+                        </div>
+                        <div class="sim-arrow">→</div>
+                        <div class="sim-atom acceptor-atom">
+                            <span class="sim-label">Akseptor</span>
+                            <strong>H⁺</strong>
+                        </div>
+                    </div>
+                    <p class="simulation-description" id="simulationDescription">Atom donor memiliki pasangan elektron bebas yang tersedia untuk digunakan bersama.</p>
+                    <div class="simulation-controls">
+                        <button class="sim-button" id="prevStep" onclick="ubahSimulasi(-1)" disabled>← Sebelumnya</button>
+                        <button class="sim-button primary" id="nextStep" onclick="ubahSimulasi(1)">Berikutnya →</button>
+                    </div>
+                </div>
+            </div>
+        <div class="page-nav"><button onclick="bukaHalaman(2)">← Sebelumnya</button><button class="primary" onclick="selesaiSimulasi()">Berikutnya →</button></div>
+        <div class="page-indicator">Halaman 4 dari 5 • Simulasi Visual</div>
+    </section>
+
+
+    <!-- AUDIO VISUAL -->
+    <section class="audio-visual-page page" id="audioVisual">
+        <div class="audio-visual-inner">
+            <div class="concept-header">
+                <span class="concept-label">05 • AUDIO VISUAL</span>
+                <h2>Dengarkan dan Amati</h2>
+                <p>Dengarkan kembali seluruh materi yang sudah dipelajari dan amati visual untuk menguatkan pemahaman sebelum masuk ke tahap berikutnya.</p>
+            </div>
+
+            <div class="audio-visual-panel final-panel">
+                <div class="audio-panel">
+                    <h3>🔊 Audio Penjelasan</h3>
+                    <p>Audio ini merangkum dan menjelaskan kembali materi yang sudah ditampilkan, mulai dari ikatan kovalen, ikatan kovalen koordinasi, donor dan akseptor, sampai elektron valensi.</p>
+                    <button class="audio-button" onclick="dengarkanMateriLengkap()">Dengarkan Penjelasan Materi</button>
+                </div>
+
+                <div class="visual-panel">
+                    <h3>👁 Visualisasi</h3>
+                    <p>Amati tahapan pembentukan ikatan: pasangan elektron tersedia, bergerak menuju atom lain, lalu digunakan bersama.</p>
+                    <div class="mini-visual">
+                        <div class="mini-atom">N<br><span>:</span></div>
+                        <div class="mini-arrow">→</div>
+                        <div class="mini-atom acceptor">H⁺</div>
+                    </div>
+                    <button class="visual-button" onclick="bukaHalaman(3)">Kembali ke Simulasi →</button>
+                </div>
+            </div>
+
+            <div class="page-nav">
+                <button onclick="bukaHalaman(3)">← Sebelumnya</button>
+                <button class="primary" disabled title="Tahap nomor 6 belum dibuat">Lanjut ke Simulasi →</button>
+            </div>
+            <div class="page-indicator">Halaman 5 dari 5 • Audio Visual</div>
+        </div>
+    </section>
+
+
+    <script>
+        let jawabanTersimpan = false;
+        let halamanMaksimal = 0;
+
+        function mulaiBelajar(event) {
+            if (event) event.preventDefault();
+            halamanMaksimal = Math.max(halamanMaksimal, 1);
+            document.getElementById("progressFill").style.width = "15%";
+            document.getElementById("progressText").textContent = "15%";
+
+            // Pastikan tombol Mulai Belajar selalu membuka halaman Peta Pembelajaran.
+            const halaman = document.querySelectorAll(".page");
+            halaman.forEach((el, i) => el.classList.toggle("active", i === 1));
+            window.scrollTo(0, 0);
+        }
+
+        function simpanJawaban() {
+            const jawaban = document.getElementById("jawaban").value.trim();
+            const nextButton = document.getElementById("nextPeta");
+
+            if (jawaban === "") {
+                alert("Silakan tuliskan jawaban terlebih dahulu.");
+                return;
+            }
+
+            jawabanTersimpan = true;
+            halamanMaksimal = Math.max(halamanMaksimal, 2);
+            nextButton.disabled = false;
+            alert("Jawaban berhasil disimpan! Kamu bisa melanjutkan ke halaman berikutnya.");
+            document.getElementById("progressFill").style.width = "10%";
+            document.getElementById("progressText").textContent = "10%";
+        }
+
+        function dengarkanMateriLengkap() {
+            const teks = `Ikatan kovalen adalah ikatan yang terbentuk ketika dua atom menggunakan pasangan elektron secara bersama. Pasangan elektron tersebut digunakan oleh atom-atom yang berikatan untuk mencapai keadaan yang lebih stabil. Pada ikatan kovalen koordinasi, pasangan elektron yang digunakan bersama berasal dari satu atom. Atom yang menyediakan pasangan elektron disebut donor, sedangkan atom yang menerima pasangan elektron disebut akseptor. Arah panah pada ikatan kovalen koordinasi menunjukkan asal pasangan elektron yang digunakan untuk membentuk ikatan. Karena seluruh pasangan elektron pembentuk ikatan mula-mula berasal dari atom donor, keberadaan pasangan elektron bebas pada atom donor menjadi bagian penting dalam pembentukan ikatan kovalen koordinasi.
+
+Elektron valensi adalah elektron yang berada pada kulit terluar suatu atom. Elektron valensi berperan dalam pembentukan ikatan. Sebagai contoh, atom nitrogen memiliki konfigurasi elektron satu s kuadrat, dua s kuadrat, dua p pangkat tiga. Elektron pada kulit terluar merupakan elektron valensinya. Pada molekul amonia, atom nitrogen memiliki pasangan elektron bebas yang dapat berperan dalam pembentukan ikatan.
+
+Jadi, hal penting yang perlu diingat adalah bahwa ikatan kovalen menggunakan pasangan elektron secara bersama, sedangkan pada ikatan kovalen koordinasi seluruh pasangan elektron yang digunakan bersama berasal dari satu atom donor dan kemudian digunakan bersama dengan atom akseptor.`;
+            if ("speechSynthesis" in window) {
+                window.speechSynthesis.cancel();
+                const suara = new SpeechSynthesisUtterance(teks);
+                suara.lang = "id-ID";
+                suara.rate = 0.92;
+                window.speechSynthesis.speak(suara);
+            } else {
+                alert("Fitur suara tidak didukung oleh browser ini.");
+            }
+        }
+
+        let langkahSimulasi = 1;
+        const dataSimulasi = [
+            ["Pasangan elektron tersedia", "Atom donor memiliki pasangan elektron bebas yang tersedia untuk digunakan bersama."],
+            ["Pasangan elektron menuju atom lain", "Pasangan elektron dari atom donor diarahkan menuju atom lain yang akan menerima pasangan tersebut."],
+            ["Terbentuk ikatan kovalen koordinasi", "Pasangan elektron digunakan bersama sehingga terbentuk ikatan kovalen koordinasi antara donor dan akseptor."]
+        ];
+
+        function tampilkanSimulasi() {
+            const data = dataSimulasi[langkahSimulasi - 1];
+            const stage = document.getElementById("simulationStage");
+            document.getElementById("stepText").textContent = `Langkah ${langkahSimulasi} dari 3`;
+            document.getElementById("stepTitle").textContent = data[0];
+            document.getElementById("simulationDescription").textContent = data[1];
+            document.getElementById("simulationProgress").style.width = `${(langkahSimulasi / 3) * 100}%`;
+            stage.className = `simulation-stage step-${langkahSimulasi}`;
+            document.getElementById("prevStep").disabled = langkahSimulasi === 1;
+            document.getElementById("nextStep").disabled = langkahSimulasi === 3;
+        }
+
+        function ubahSimulasi(arah) {
+            langkahSimulasi = Math.max(1, Math.min(3, langkahSimulasi + arah));
+            tampilkanSimulasi();
+        }
+
+        function selesaiKonsep() {
+            halamanMaksimal = Math.max(halamanMaksimal, 3);
+            bukaHalaman(3);
+        }
+
+        function selesaiSimulasi() {
+            halamanMaksimal = Math.max(halamanMaksimal, 4);
+            bukaHalaman(4);
+        }
+
+
+        function bukaHalaman(index) {
+            // Halaman hanya dapat dibuka sesuai urutan pembelajaran.
+            if (index > halamanMaksimal) {
+                if (index >= 2 && !jawabanTersimpan) {
+                    alert("Simpan jawaban pertanyaan awal terlebih dahulu sebelum melanjutkan.");
+                } else {
+                    alert("Selesaikan halaman sebelumnya terlebih dahulu.");
+                }
+                return;
+            }
+
+            const halaman = document.querySelectorAll(".page");
+            halaman.forEach((el, i) => el.classList.toggle("active", i === index));
+            window.scrollTo(0, 0);
+            if (index !== 4 && "speechSynthesis" in window) window.speechSynthesis.cancel();
+        }
+
+
+        tampilkanSimulasi();
+    </script>
+
+</body>
+</html>
